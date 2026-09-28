@@ -1,0 +1,7 @@
+[default]
+address = "0.0.0.0"
+port = 8000
+
+[default.databases.postgres]
+url = "postgres://postgres:password@localhost:5432/rocket_backend"
+pool_size = 10

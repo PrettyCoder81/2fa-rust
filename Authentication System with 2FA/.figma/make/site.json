@@ -1,0 +1,10 @@
+{
+  "description": "Securely manage user authentication with features like two-factor authentication, session control, and password management for enhanced online safety.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

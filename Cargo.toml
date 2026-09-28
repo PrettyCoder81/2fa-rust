@@ -1,0 +1,27 @@
+[package]
+name = "silver-rocket"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rocket = { version = "0.5.0-rc", features = ["json"] }
+rocket_sync_db_pools = { version = "0.1.0-rc", features = ["diesel_postgres_pool"] }
+
+diesel = { version = "2.0", features = ["postgres", "uuid", "chrono", "serde_json"] }
+dotenvy = "0.15"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+argon2 = "0.5"
+rand = "0.9"
+sha2 = "0.10"
+hex = "0.4"
+
+totp-rs = { version = "5", features = ["otpauth"] }
+
+subtle = "2"
+rocket_cors = "0.6.0"

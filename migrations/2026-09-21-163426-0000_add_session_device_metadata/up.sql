@@ -1,0 +1,4 @@
+ALTER TABLE sessions
+ADD COLUMN ip_address VARCHAR(45) NULL,
+ADD COLUMN user_agent VARCHAR(500) NULL,
+ADD COLUMN device_name VARCHAR(100) NULL;
