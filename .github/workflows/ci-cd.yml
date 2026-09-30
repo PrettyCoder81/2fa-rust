@@ -131,7 +131,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rust-2fa-release
-          path: ./target/release/
+          path: target/release/silver-rocket
 
   # ==========================================
   # 5. DEPLOY
@@ -153,7 +153,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: rust-2fa-release
-          path: release
+          path: release/silver-rocket
 
 
       - name: Upload release
@@ -165,10 +165,10 @@ jobs:
           set -euo pipefail
 
           scp \
-            -i ~/.ssh/deploy_key \
-            -o StrictHostKeyChecking=yes \
-            " ./target/release/silver-rocket \
-            ""/var/www/2fa-rust/releases/silver-rocket"
+          -i ~/.ssh/deploy_key \
+          -o StrictHostKeyChecking=yes \
+          release/silver-rocket \
+          "${PROD_USER}@${PROD_HOST}:/var/www/2fa-rust/releases/silver-rocket"
 
       # - name: Script commd=and
       #   uses: appleboy/ssh-action@v1
