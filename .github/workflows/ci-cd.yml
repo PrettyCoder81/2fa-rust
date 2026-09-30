@@ -14,7 +14,7 @@ env:
 
 defaults:
   run:
-    working-directory: Authentication System with 2FA
+    working-directory: "auth-2fa"
 
 jobs:
 
@@ -62,8 +62,8 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            Authentication System with 2FA/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Authentication System with 2FA/Cargo.lock') }}
+            "auth-2fa"/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('"auth-2fa"/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-
 
@@ -91,8 +91,8 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            Authentication System with 2FA/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Authentication System with 2FA/Cargo.lock') }}
+            "auth-2fa"/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('"auth-2fa"/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-
 
@@ -124,8 +124,8 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            Authentication System with 2FA/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Authentication System with 2FA/Cargo.lock') }}
+            "auth-2fa"/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('"auth-2fa"/Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-
 
@@ -136,7 +136,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rust-2fa-release
-          path: Authentication System with 2FA/target/release/
+          path: "auth-2fa"/target/release/
 
   # ==========================================
   # 5. DEPLOY
