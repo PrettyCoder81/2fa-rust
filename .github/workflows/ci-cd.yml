@@ -180,7 +180,10 @@ jobs:
         env:
           HOST: ${{ secrets.DEPLOY_HOST }}
           USER: ${{ secrets.DEPLOY_USER }}
-        script: |
+        run: |
           set -e
+          whoami
+          which pm2
+          pm2 status
           sudo pm2 delete 2fa-rust
           sudo pm2 start /var/www/2fa-rust/2fa-app --name 2fa-rust
