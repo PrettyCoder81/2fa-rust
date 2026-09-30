@@ -931,7 +931,6 @@ pub async fn change_password(
     cookies: &CookieJar<'_>,
     request: Json<ChangePasswordRequest>,
 ) -> Result<Status, String> {
-
     if request.current_password == request.new_password {
         return Err("New password must be different from current password".to_string());
     }

@@ -9,7 +9,7 @@ use uuid::Uuid;
 
 use crate::{
     DbConn,
-    auth::{csrf::valid_csrf_token, session::hash_token, device::detect_device},
+    auth::{csrf::valid_csrf_token, device::detect_device, session::hash_token},
     schema::{
         sessions::{self},
         users,

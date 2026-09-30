@@ -8,14 +8,9 @@ pub struct RequestMetadata {
 impl RequestMetadata {
     pub fn from_request(request: &Request<'_>) -> Self {
         Self {
-            ip_address: request
-                .client_ip()
-                .map(|ip| ip.to_string()),
+            ip_address: request.client_ip().map(|ip| ip.to_string()),
 
-            user_agent: request
-                .headers()
-                .get_one("User-Agent")
-                .map(str::to_string),
+            user_agent: request.headers().get_one("User-Agent").map(str::to_string),
         }
     }
 

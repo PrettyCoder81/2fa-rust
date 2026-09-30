@@ -22,4 +22,3 @@ pub const PASSWORD_RESET_COMPLETED: &str = "auth.password_reset.completed";
 
 pub const SESSION_REVOKED: &str = "auth.session.revoked";
 pub const SESSIONS_REVOKED_ALL: &str = "auth.sessions.revoked_all";
-

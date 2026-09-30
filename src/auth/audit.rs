@@ -2,11 +2,7 @@ use diesel::prelude::*;
 use serde_json::Value;
 use uuid::Uuid;
 
-use crate::{
-    models::security_event::NewSecurityEvent,
-    schema::security_events,
-    DbConn,
-};
+use crate::{DbConn, models::security_event::NewSecurityEvent, schema::security_events};
 
 pub struct AuditEvent<'a> {
     pub user_id: Option<Uuid>,
@@ -16,10 +12,7 @@ pub struct AuditEvent<'a> {
     pub metadata: Option<Value>,
 }
 
-pub async fn record_event(
-    db: &mut DbConn,
-    event: AuditEvent<'_>,
-) -> Result<(), String> {
+pub async fn record_event(db: &mut DbConn, event: AuditEvent<'_>) -> Result<(), String> {
     let new_event = NewSecurityEvent {
         id: Uuid::new_v4(),
         user_id: event.user_id,

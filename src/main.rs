@@ -2,17 +2,17 @@
 extern crate rocket;
 
 mod auth;
+mod faring;
 mod models;
 mod routes;
 mod schema;
-mod faring;
 
 use rocket_sync_db_pools::{database, diesel};
 
 use crate::routes::auth::{
     change_password, confirm_2fa, csrf_token, disable_2fa, list_sessions, login, logout,
-    logout_all, profile, regenerate_recovery_codes, register, revoke_session, setup_2fa,
-    verify_2fa, verify_recovery_code, options
+    logout_all, options, profile, regenerate_recovery_codes, register, revoke_session, setup_2fa,
+    verify_2fa, verify_recovery_code,
 };
 
 #[database("postgres")]
@@ -28,28 +28,28 @@ fn rocket() -> _ {
     dotenvy::dotenv().ok();
 
     rocket::build()
-    .attach(DbConn::fairing())
-    .attach(faring::cors::Cors)
-    .mount("/", routes![options])
-    .mount(
-        "/api",
-        routes![
-            index,
-            csrf_token,
-            register,
-            login,
-            profile,
-            logout,
-            logout_all,
-            setup_2fa,
-            confirm_2fa,
-            verify_2fa,
-            disable_2fa,
-            verify_recovery_code,
-            regenerate_recovery_codes,
-            list_sessions,
-            revoke_session,
-            change_password
-        ],
-    )
+        .attach(DbConn::fairing())
+        .attach(faring::cors::Cors)
+        .mount("/", routes![options])
+        .mount(
+            "/api",
+            routes![
+                index,
+                csrf_token,
+                register,
+                login,
+                profile,
+                logout,
+                logout_all,
+                setup_2fa,
+                confirm_2fa,
+                verify_2fa,
+                disable_2fa,
+                verify_recovery_code,
+                regenerate_recovery_codes,
+                list_sessions,
+                revoke_session,
+                change_password
+            ],
+        )
 }
