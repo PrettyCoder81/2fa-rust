@@ -155,44 +155,26 @@ jobs:
           name: rust-2fa-release
           path: release
 
-      - name: Configure SSH
-        uses: appleboy/ssh-action@v1
+      - name: Upload application
+        uses: appleboy/scp-action@v1
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            mkdir -p ~/.ssh
-            echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
-            chmod 600 ~/.ssh/deploy_key
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          source: "./target/release/your-binary"
+          target: "/var/www/2fa-rust/releases/"
 
-            ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+      # - name: Script commd=and
+      #   uses: appleboy/ssh-action@v1
+      #   with:
+      #     host: ${{ secrets.VPS_HOST }}
+      #     username: ${{ secrets.VPS_USERNAME }}
+      #     key: ${{ secrets.VPS_SSH_KEY }}
+      #     script: |
+      #       set -e
+      #       whoami
 
-      - name: Deploy application
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            scp -i ~/.ssh/deploy_key \
-              release/silver-rocket \
-              ${USER}@${HOST}:/tmp/2fa-app
-
-            ssh -i ~/.ssh/deploy_key \
-              ${USER}@${HOST} \
-              "sudo mv /tmp/2fa-app /var/www/2fa-rust/2fa-app"
-
-      - name: Script commd=and
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            set -e
-            whoami
-            which pm2
-            sudo pm2 delete 2fa-rust
-            sudo pm2 start /var/www/2fa-rust/2fa-app --name 2fa-rust
-            pm2 status
+      #       which pm2
+      #       sudo pm2 delete 2fa-rust
+      #       sudo pm2 start /var/www/2fa-rust/2fa-app --name 2fa-rust
+      #       pm2 status
