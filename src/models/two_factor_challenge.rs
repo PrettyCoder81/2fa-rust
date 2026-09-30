@@ -4,6 +4,7 @@ use uuid::Uuid;
 
 use crate::schema::two_factor_challenges;
 
+#[allow(dead_code)]
 #[derive(Queryable)]
 pub struct TwoFactorChallenge {
     pub id: Uuid,

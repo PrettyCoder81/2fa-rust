@@ -9,6 +9,7 @@ pub fn generate_csrf_token() -> String {
     hex::encode(bytes)
 }
 
+#[allow(dead_code)]
 pub fn valid_csrf_token(cookie_token: &str, header_token: &str) -> bool {
     cookie_token
         .as_bytes()

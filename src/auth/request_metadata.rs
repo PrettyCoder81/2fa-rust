@@ -1,10 +1,12 @@
 use rocket::Request;
 
+#[allow(dead_code)]
 pub struct RequestMetadata {
     pub ip_address: Option<String>,
     pub user_agent: Option<String>,
 }
 
+#[allow(dead_code)]
 impl RequestMetadata {
     pub fn from_request(request: &Request<'_>) -> Self {
         Self {

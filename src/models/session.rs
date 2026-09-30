@@ -4,6 +4,7 @@ use uuid::Uuid;
 
 use crate::schema::sessions;
 
+#[allow(dead_code)]
 #[derive(Queryable)]
 pub struct Session {
     pub id: Uuid,

@@ -6,6 +6,7 @@ use uuid::Uuid;
 
 use crate::schema::security_events;
 
+#[allow(dead_code)]
 #[derive(Queryable, Serialize)]
 pub struct SecurityEvent {
     pub id: Uuid,

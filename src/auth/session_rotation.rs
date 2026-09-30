@@ -13,11 +13,12 @@ use crate::{
     schema::sessions,
 };
 
+#[allow(dead_code)]
 pub async fn rotate_session(
     db: &mut DbConn,
     current_token: &str,
     user_id: Uuid,
-    meta: RequestMetadata,
+    _meta: RequestMetadata,
 ) -> Result<rocket::http::Cookie<'static>, String> {
     let current_hash = hash_token(current_token);
 

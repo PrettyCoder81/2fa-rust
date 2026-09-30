@@ -3,7 +3,6 @@ use chrono::{Duration, Utc};
 use diesel::prelude::*;
 use rocket::{
     http::{Cookie, CookieJar, SameSite, Status},
-    request::Request,
     serde::json::Json,
 };
 use serde::{Deserialize, Serialize};
@@ -13,7 +12,6 @@ use crate::auth::guards::ClientInfo;
 use crate::{
     DbConn,
     auth::{
-        audit, audit_events,
         cookie::{remove_session_cookie, session_cookie},
         csrf::generate_csrf_token,
         guards::{AuthenticatedUser, CsrfProtected},

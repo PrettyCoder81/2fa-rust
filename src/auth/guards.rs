@@ -9,7 +9,7 @@ use uuid::Uuid;
 
 use crate::{
     DbConn,
-    auth::{csrf::valid_csrf_token, device::detect_device, session::hash_token},
+    auth::{device::detect_device, session::hash_token},
     schema::{
         sessions::{self},
         users,
@@ -90,11 +90,12 @@ impl<'r> FromRequest<'r> for AuthenticatedUser {
 
 pub struct CsrfProtected;
 
+#[allow(dead_code)]
 #[rocket::async_trait]
 impl<'r> FromRequest<'r> for CsrfProtected {
     type Error = ();
 
-    async fn from_request(request: &'r Request<'_>) -> Outcome<Self, Self::Error> {
+    async fn from_request(_request: &'r Request<'_>) -> Outcome<Self, Self::Error> {
         // let cookies = request.cookies();
 
         // let cookie_token = match cookies.get("csrf_token") {
