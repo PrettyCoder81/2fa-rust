@@ -32,7 +32,7 @@ fn rocket() -> _ {
         .attach(faring::cors::Cors)
         .mount("/", routes![options])
         .mount(
-            "/",
+            "/api",
             routes![
                 index,
                 csrf_token,
