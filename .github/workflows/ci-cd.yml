@@ -195,7 +195,7 @@ jobs:
       # GitHub Secrets required:
       #
       # DEPLOY_SSH_KEY
-      # PROD_KNOWN_HOSTS
+      # DEPLOY_KNOWN_HOSTS
       # DEPLOY_HOST
       # DEPLOY_USER
       #
@@ -204,7 +204,7 @@ jobs:
         shell: bash
         env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-          PROD_KNOWN_HOSTS: ${{ secrets.PROD_KNOWN_HOSTS }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
         run: |
           set -euo pipefail
 
@@ -212,7 +212,7 @@ jobs:
 
           printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
 
-          printf '%s\n' "$PROD_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
 
           chmod 600 ~/.ssh/deploy_key
           chmod 644 ~/.ssh/known_hosts
