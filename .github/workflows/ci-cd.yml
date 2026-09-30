@@ -149,20 +149,26 @@ jobs:
       name: production
 
     steps:
-      # - name: Download build artifact
-      #   uses: actions/download-artifact@v5
-      #   with:
-      #     name: rust-2fa-release
-      #     path: release
-
-      - name: Upload application
-        uses: appleboy/scp-action@v1
+      - name: Download build artifact
+        uses: actions/download-artifact@v5
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          source: "./target/release/silver-rocket"
-          target: "/var/www/2fa-rust/releases/"
+          name: rust-2fa-release
+          path: release
+
+
+      - name: Upload release
+        shell: bash
+        env:
+          PROD_HOST: ${{ secrets.PROD_HOST }}
+          PROD_USER: ${{ secrets.PROD_USER }}
+        run: |
+          set -euo pipefail
+
+          scp \
+            -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=yes \
+            " ./target/release/silver-rocket \
+            ""/var/www/2fa-rust/releases/silver-rocket"
 
       # - name: Script commd=and
       #   uses: appleboy/ssh-action@v1
