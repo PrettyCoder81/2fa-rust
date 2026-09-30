@@ -174,7 +174,7 @@ jobs:
 
           ssh -i ~/.ssh/deploy_key \
             ${USER}@${HOST} \
-            "sudo mv /tmp/2fa-app /var/www/rocket-server/rust-backend/2fa-app"
+            "sudo mv /tmp/2fa-app /var/www/2fa-rust/2fa-app"
 
       - name: Restart application
         env:
