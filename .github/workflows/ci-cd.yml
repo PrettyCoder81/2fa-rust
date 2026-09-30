@@ -57,8 +57,8 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            auth-2fa/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('auth-2fa/Cargo.lock') }}
+            ./target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('./Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-
 
@@ -86,8 +86,8 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            auth-2fa/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('auth-2fa/Cargo.lock') }}
+            ./target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('./Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-
 
@@ -119,8 +119,8 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            auth-2fa/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('auth-2fa/Cargo.lock') }}
+            ./target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('./Cargo.lock') }}
           restore-keys: |
             ${{ runner.os }}-cargo-
 
@@ -131,7 +131,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rust-2fa-release
-          path: auth-2fa/target/release/
+          path: ./target/release/
 
   # ==========================================
   # 5. DEPLOY
