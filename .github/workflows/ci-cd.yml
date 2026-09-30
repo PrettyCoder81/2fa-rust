@@ -156,25 +156,32 @@ jobs:
           path: release
 
       - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+            chmod 600 ~/.ssh/deploy_key
 
-          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+            ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
 
       - name: Deploy application
-        env:
-          HOST: ${{ secrets.DEPLOY_HOST }}
-          USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          scp -i ~/.ssh/deploy_key \
-            release/silver-rocket \
-            ${USER}@${HOST}:/tmp/2fa-app
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            scp -i ~/.ssh/deploy_key \
+              release/silver-rocket \
+              ${USER}@${HOST}:/tmp/2fa-app
 
-          ssh -i ~/.ssh/deploy_key \
-            ${USER}@${HOST} \
-            "sudo mv /tmp/2fa-app /var/www/2fa-rust/2fa-app"
+            ssh -i ~/.ssh/deploy_key \
+              ${USER}@${HOST} \
+              "sudo mv /tmp/2fa-app /var/www/2fa-rust/2fa-app"
 
       - name: Script commd=and
         uses: appleboy/ssh-action@v1
