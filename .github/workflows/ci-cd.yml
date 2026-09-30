@@ -149,11 +149,11 @@ jobs:
       name: production
 
     steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: rust-2fa-release
-          path: release
+      # - name: Download build artifact
+      #   uses: actions/download-artifact@v5
+      #   with:
+      #     name: rust-2fa-release
+      #     path: release
 
       - name: Upload application
         uses: appleboy/scp-action@v1
@@ -161,7 +161,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
-          source: "./target/release/your-binary"
+          source: "./target/release/silver-rocket"
           target: "/var/www/2fa-rust/releases/"
 
       # - name: Script commd=and
