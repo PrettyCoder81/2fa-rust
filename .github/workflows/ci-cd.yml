@@ -176,20 +176,11 @@ jobs:
             ${USER}@${HOST} \
             "sudo mv /tmp/2fa-app /var/www/2fa-rust/2fa-app"
 
-      - name: Restart application
+      - name: Delete application
         env:
           HOST: ${{ secrets.DEPLOY_HOST }}
           USER: ${{ secrets.DEPLOY_USER }}
         run: |
-          ssh -i ~/.ssh/deploy_key \
-            ${USER}@${HOST} \
-            "sudo systemctl restart 2fa-rust"
-
-      - name: Verify deployment
-        env:
-          HOST: ${{ secrets.DEPLOY_HOST }}
-          USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          ssh -i ~/.ssh/deploy_key \
-            ${USER}@${HOST} \
-            "sudo systemctl is-active --quiet 2fa-rust"
+          set -e
+          sudo pm2 delete 2fa-rust
+          sudo pm2 start /var/www/2fa-rust/2fa-app --name 2fa-rust
