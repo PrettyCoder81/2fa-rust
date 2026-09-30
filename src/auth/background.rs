@@ -30,4 +30,3 @@ pub async fn session_cleanup_loop(rocket: rocket::Rocket<rocket::Orbit>) {
         }
     }
 }
-
